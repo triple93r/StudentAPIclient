@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Student Data</h1>
+
+<div>
+    <input type="button" id="btnGetAll" name="btnGetAll" class="btn btn-info" value="Get Data" />
+</div>
+<div class="container">
+    <div class="container-fluid">
+        <table id="studtbl" class="table table-responsive table-striped table-bordered">
+            <tr>
+                <th>Selection</th>
+                <th>Student Name</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th></th>
+            </tr>
+            <tbody id="studtblbody" name="studtblbody">
+            </tbody>
+        </table>
+    </div>
+
+    <p></p><br />
+@*    <div>
+        Student Semester details
+        <table id="tblsemester" name="tblsemester" class="table table-bordered table-responsive table-striped">
+            <tr>
+                <th>Semester#</th>
+                <th>Subject1</th>
+                <th>Mark1</th>
+                <th>Subject2</th>
+                <th>Mark2</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>*@
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            debugger;
+            $('#btnGetAll').click(function () {
+                debugger;
+                getData();
+            })
+
+
+            function getData()
+            {
+                debugger;
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:5128/api/Students',
+                    contentType: 'json',
+                    success: function (response) {
+                        if (response.length == 0) {
+                            alert(response);
+                        } else {
+                            $.each(response, function (index, item)
+                            {
+                                $("#studtblbody").append("<tr><td><input type='radio' id='rd1' name='rd1' value=" + item.Id + " group='rad1' /><input type='hidden' id='r1' name='r1' value=" + item.Id + " /></td><td>" + item.StudentName + "</td> <td>" + item.age + " </td><td>" + item.Address + "</td> <td>Edit | Delete </td></tr>");
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
+            }
+
+            
+            $(document).on("click", "#rd1", function () {
+                debugger;
+                alert("radio clicked");
+            });
+
+        });
+    </script>
+}
