@@ -67,6 +67,7 @@
                     type: 'GET',
                     url: 'http://localhost:5128/api/Students',
                     contentType: 'json',
+                    //data: { txtFromDate: dfrom, txtToDate: dto, dpdnperson: pname, id: pid },
                     success: function (response) {
                         if (response.length == 0) {
                             alert(response);
