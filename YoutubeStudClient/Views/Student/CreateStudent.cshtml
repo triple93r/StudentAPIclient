@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "CreateStudent";
+}
+
+<h1>CreateStudent</h1>
+
+<div class="container">
+    <div class="container-fluid">
+        <table id="studtbl" class="table table-responsive table-striped table-bordered">
+            <tr>
+                <td>Student Name</td>
+                <td><input id="StudentName" type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input id="age" type="number" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td>Adress</td>
+                <td><input id="Address" type="text" class="form-control" /></td>
+            </tr>
+        </table>
+    </div>
+
+    <p></p><br />
+    <div><input type="button" id="btnSave" name="btnSave" class="btn btn-info" value="Save Data" /> </div>
+
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnSave').click(function () {
+                debugger;
+                SaveData();
+            });
+
+            function SaveData() {
+                debugger;
+                var n = $('#StudentName').val();
+                var a = parseInt($('#age').val());
+                var ad = $('#Address').val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:5128/api/Students/Create?StudentName='+n+'&age='+a+'&Address='+ad,
+                    contentType: 'json',
+                    //data: { studentName: n, age:a , address:ad},
+                    success: function (response) {
+                        if (response.length == 0) {
+                            alert(response);
+                        } else {
+                            alert("Data Saved!");
+                            };
+                        },
+                    error: function (err) {
+                        console.error(err);
+                    }
+               });
+            }
+
+        });
+    </script>
+    }

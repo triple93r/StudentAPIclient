@@ -6,6 +6,7 @@
 
 <div>
     <input type="button" id="btnGetAll" name="btnGetAll" class="btn btn-info" value="Get Data" />
+    <input type="button" id="btnAddNEw" name="btnAddNEw" class="btn btn-primary" value="Add New" />
 </div>
 <div class="container">
     <div class="container-fluid">
@@ -23,31 +24,7 @@
     </div>
 
     <p></p><br />
-@*    <div>
-        Student Semester details
-        <table id="tblsemester" name="tblsemester" class="table table-bordered table-responsive table-striped">
-            <tr>
-                <th>Semester#</th>
-                <th>Subject1</th>
-                <th>Mark1</th>
-                <th>Subject2</th>
-                <th>Mark2</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>*@
+
 </div>
 
 @section Scripts{
@@ -87,9 +64,14 @@
             
             $(document).on("click", "#rd1", function () {
                 debugger;
-                alert("radio clicked");
+                var x = $('input[name="rd1"]:checked').val();
+                alert( x + " radio clicked");
             });
 
+            $(document).on("click", "#btnAddNEw", function () {
+                debugger;
+                $(location).prop('href', 'Student/CreateStudent')
+            });
         });
     </script>
 }

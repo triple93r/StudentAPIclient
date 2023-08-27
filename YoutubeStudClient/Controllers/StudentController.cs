@@ -8,5 +8,10 @@ namespace YoutubeStudClient.Controllers
         {
             return View();
         }
+
+        public IActionResult CreateStudent()
+        {
+            return View();
+        }
     }
 }
