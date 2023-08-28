@@ -33,40 +33,41 @@
     <script type="text/javascript">
         $(document).ready(function () {
             debugger;
-            var id = JSON.stringify(GetParameterValues('ID'));
-            GetParameterValues(param);
 
-            function getData() {
+            var Idn = GetParameterValues();
+            var secondValue = Idn[1];
+            //GetParameterValues(param);
+            
+            function GetParameterValues() {
+                var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < url.length; i++) 
+                {
+                    var urlparam = url[i].split('=');
+                    if (urlparam[0] == 'id') {
+                        editData(urlparam[1]);
+                        return urlparam[1];
+                    }
+                }
+            }
+
+            function editData(g) {
                 debugger;
+                //var n = $('#a1').attr("value");
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:5128/api/Students',
+                    url: 'http://localhost:5128/api/Students/FindById/' + g,
                     contentType: 'json',
-                    //data: { txtFromDate: dfrom, txtToDate: dto, dpdnperson: pname, id: pid },
                     success: function (response) {
                         if (response.length == 0) {
                             alert(response);
                         } else {
-                            $.each(response, function (index, item) {
-                                $("#studtblbody").append("<tr><td><input type='radio' id='rd1' name='rd1' value=" + item.Id + " group='rad1' /><input type='hidden' id='r1' name='r1' value=" + item.Id + " /></td><td>" + item.StudentName + "</td> <td>" + item.age + " </td><td>" + item.Address + "</td> <td> <a id='a1' href=# value=" + item.Id + " >Edit</a> | Delete </td></tr>");
-                            });
-                        }
+                            alert("Data Saved!");
+                        };
                     },
                     error: function (err) {
                         console.error(err);
                     }
                 });
-            }
-            
-            function GetParameterValues(param) {
-                var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-                for (var i = 0; i < url.length; i++) 
-                {
-                    var urlparam = url[i].split('=');
-                    if (urlparam[0] == param) {
-                        return urlparam[1];
-                    }
-                }
             }
 
             $('#btnSave').click(function () {
