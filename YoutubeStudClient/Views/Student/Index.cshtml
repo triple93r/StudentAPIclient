@@ -31,6 +31,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             debugger;
+
             $('#btnGetAll').click(function () {
                 debugger;
                 getData();
@@ -51,7 +52,7 @@
                         } else {
                             $.each(response, function (index, item)
                             {
-                                $("#studtblbody").append("<tr><td><input type='radio' id='rd1' name='rd1' value=" + item.Id + " group='rad1' /><input type='hidden' id='r1' name='r1' value=" + item.Id + " /></td><td>" + item.StudentName + "</td> <td>" + item.age + " </td><td>" + item.Address + "</td> <td>Edit | Delete </td></tr>");
+                                $("#studtblbody").append("<tr><td><input type='radio' id='rd1' name='rd1' value=" + item.Id + " group='rad1' /><input type='hidden' id='r1' name='r1' value=" + item.Id + " /></td><td>" + item.StudentName + "</td> <td>" + item.age + " </td><td>" + item.Address + "</td> <td> <a id='a1' href=# value=" + item.Id + " >Edit</a> | Delete </td></tr>");
                             });
                         }
                     },
@@ -68,10 +69,47 @@
                 alert( x + " radio clicked");
             });
 
+            
+
             $(document).on("click", "#btnAddNEw", function () {
                 debugger;
                 $(location).prop('href', 'Student/CreateStudent')
             });
+
+            $(document).on("click", "a", function () {
+                debugger;
+                var x = $(this).attr("value");
+                //alert(x + " href clicked");
+                //editData(x);
+                editDataRed(x);
+            });
+
+            function editData(g) {
+                debugger;
+                //var n = $('#a1').attr("value");
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:5128/api/Students/FindById/' + g,
+                    contentType: 'json',
+                    success: function (response) {
+                        if (response.length == 0) {
+                            alert(response);
+                        } else {
+                            alert("Data Saved!");
+                        };
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
+            }
+
+            function editDataRed(g)
+            {
+                debugger;
+                $(location).prop('href', 'Student/Edit/?id='+g)
+            }
+
         });
     </script>
 }
