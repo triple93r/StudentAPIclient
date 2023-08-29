@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 @{
     ViewData["Title"] = "Edit";
 }
@@ -35,13 +35,12 @@
             debugger;
 
             var Idn = GetParameterValues();
-            var secondValue = Idn[1];
+            var secondValue = Idn[1]; // this is only for debugging value (removable)
             //GetParameterValues(param);
-            
+
             function GetParameterValues() {
                 var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-                for (var i = 0; i < url.length; i++) 
-                {
+                for (var i = 0; i < url.length; i++) {
                     var urlparam = url[i].split('=');
                     if (urlparam[0] == 'id') {
                         editData(urlparam[1]);
@@ -61,7 +60,10 @@
                         if (response.length == 0) {
                             alert(response);
                         } else {
-                            alert("Data Saved!");
+                            //alert(response);
+                            $('#StudentName').val(response[0].StudentName);
+                            $('#age').val(response[0].age);
+                            $('#Address').val(response[0].Address);
                         };
                     },
                     error: function (err) {
@@ -75,6 +77,27 @@
                 SaveData();
             });
 
+            function SaveData() {
+                debugger;
+                var n = $('#StudentName').val();
+                var a = parseInt($('#age').val());
+                var ad = $('#Address').val();
+                $.ajax({
+                    type: 'PUT',
+                    url: 'http://localhost:5128/api/Students/Edit?Id='+ Idn +'&StudentName=' + n + '&age=' + a + '&Address=' + ad,
+                    contentType: 'application/json',
+                    success: function (response) {
+                        if (response.length == 0) {
+                            alert(response);
+                        } else {
+                            alert("Record Updated!");
+                        };
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
+            }
         });
     </script>
     }

@@ -84,26 +84,6 @@
                 editDataRed(x);
             });
 
-            function editData(g) {
-                debugger;
-                //var n = $('#a1').attr("value");
-                $.ajax({
-                    type: 'GET',
-                    url: 'http://localhost:5128/api/Students/FindById/' + g,
-                    contentType: 'json',
-                    success: function (response) {
-                        if (response.length == 0) {
-                            alert(response);
-                        } else {
-                            alert("Data Saved!");
-                        };
-                    },
-                    error: function (err) {
-                        console.error(err);
-                    }
-                });
-            }
-
             function editDataRed(g)
             {
                 debugger;
