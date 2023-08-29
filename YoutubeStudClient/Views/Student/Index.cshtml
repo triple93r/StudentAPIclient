@@ -52,7 +52,7 @@
                         } else {
                             $.each(response, function (index, item)
                             {
-                                $("#studtblbody").append("<tr><td><input type='radio' id='rd1' name='rd1' value=" + item.Id + " group='rad1' /><input type='hidden' id='r1' name='r1' value=" + item.Id + " /></td><td>" + item.StudentName + "</td> <td>" + item.age + " </td><td>" + item.Address + "</td> <td> <a id='a1' href=# value=" + item.Id + " >Edit</a> | Delete </td></tr>");
+                                $("#studtblbody").append("<tr><td><input type='radio' id='rd1' name='rd1' value=" + item.Id + " group='rad1' /><input type='hidden' id='r1' name='r1' value=" + item.Id + " /></td><td>" + item.StudentName + "</td> <td>" + item.age + " </td><td>" + item.Address + "</td> <td> <a id='a1' href=# value=" + item.Id + " >Edit</a> | <a id='a2' href=# value=" + item.Id + " >Delete</a> </td></tr>");
                             });
                         }
                     },
@@ -76,11 +76,10 @@
                 $(location).prop('href', 'Student/CreateStudent')
             });
 
-            $(document).on("click", "a", function () {
+            $(document).on("click", "#a1", function () {
                 debugger;
                 var x = $(this).attr("value");
                 //alert(x + " href clicked");
-                //editData(x);
                 editDataRed(x);
             });
 
@@ -88,6 +87,39 @@
             {
                 debugger;
                 $(location).prop('href', 'Student/Edit/?id='+g)
+            }
+
+            $(document).on("click", "#a2", function () {
+                debugger;
+                var x = $(this).attr("value");
+                if (confirm("Are you sure you want to delete this?"))
+                {
+                    deleteDataRed(x);
+                }
+                else
+                {
+                    return false;
+                }
+            });
+
+            function deleteDataRed(g)
+            {
+                debugger;
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'http://localhost:5128/api/Students/Delete/' + g,
+                    contentType: 'application/json',
+                    success: function (response) {
+                        if (response.length == 0) {
+                            alert(response);
+                        } else {
+                            alert("Record Deleted!");
+                        };
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
             }
 
         });
