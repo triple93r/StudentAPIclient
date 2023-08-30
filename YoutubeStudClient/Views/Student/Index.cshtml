@@ -65,6 +65,7 @@
                         if (response.length == 0) {
                             alert(response);
                         } else {
+						$("#studtblbody").empty();
                             $.each(response, function (index, item)
                             {
                                 $("#studtblbody").append("<tr><td><input type='radio' id='rd1' name='rd1' value=" + item.Id + " group='rad1' /><input type='hidden' id='r1' name='r1' value=" + item.Id + " /></td><td>" + item.StudentName + "</td> <td>" + item.age + " </td><td>" + item.Address + "</td> <td> <a id='a1' href=# value=" + item.Id + " >Edit</a> | <a id='a2' href=# value=" + item.Id + " >Delete</a> </td></tr>");
@@ -140,15 +141,16 @@
                 debugger;
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:5128/api/FindSemesterByStudId/' + g,
+                    url: 'http://localhost:5128/api/Students/FindSemesterByStudId/' + g,
                     contentType: 'json',
                     //data: { txtFromDate: dfrom, txtToDate: dto, dpdnperson: pname, id: pid },
                     success: function (response) {
                         if (response.length == 0) {
                             alert(response);
                         } else {
+                            $("#semesterbody").empty();
                             $.each(response, function (index, item) {
-                                $("#semesterbody").append("<tr><td>" + item.studid + "</td><td>" + item.subject1 + "</td> <td>" + item.mark1 + " </td><td>" + item.subject2 + "</td> <td>" + item.mark2 + " </td><td>" + item.TotalMark + "</td></tr>");
+                                $("#semesterbody").append("<tr><td>" + item.Studid + "</td><td>" + item.Subject1 + "</td> <td>" + item.Mark1 + " </td><td>" + item.Subject2 + "</td> <td>" + item.Mark2 + " </td><td>" + item.TotalMark + "</td></tr>");
                             });
                         }
                     },
