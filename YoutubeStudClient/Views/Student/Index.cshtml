@@ -24,7 +24,22 @@
     </div>
 
     <p></p><br />
+    <div>
+        Student Semester details
+        <table id="tblsemester" name="tblsemester" class="table table-bordered table-responsive table-striped">
+            <tr>
+                <th>Semester#</th>
+                <th>Subject1</th>
+                <th>Mark1</th>
+                <th>Subject2</th>
+                <th>Mark2</th>
+                <th>Total</th>
+            </tr>
+            <tbody id="semesterbody" name="semesterbody">
 
+            </tbody>
+        </table>
+    </div>
 </div>
 
 @section Scripts{
@@ -66,10 +81,9 @@
             $(document).on("click", "#rd1", function () {
                 debugger;
                 var x = $('input[name="rd1"]:checked').val();
-                alert( x + " radio clicked");
+                //alert( x + " radio clicked");
+                getSemesterData(x);
             });
-
-            
 
             $(document).on("click", "#btnAddNEw", function () {
                 debugger;
@@ -115,6 +129,28 @@
                         } else {
                             alert("Record Deleted!");
                         };
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
+            }
+
+            function getSemesterData(g) {
+                debugger;
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:5128/api/FindSemesterByStudId/' + g,
+                    contentType: 'json',
+                    //data: { txtFromDate: dfrom, txtToDate: dto, dpdnperson: pname, id: pid },
+                    success: function (response) {
+                        if (response.length == 0) {
+                            alert(response);
+                        } else {
+                            $.each(response, function (index, item) {
+                                $("#semesterbody").append("<tr><td>" + item.studid + "</td><td>" + item.subject1 + "</td> <td>" + item.mark1 + " </td><td>" + item.subject2 + "</td> <td>" + item.mark2 + " </td><td>" + item.TotalMark + "</td></tr>");
+                            });
+                        }
                     },
                     error: function (err) {
                         console.error(err);
