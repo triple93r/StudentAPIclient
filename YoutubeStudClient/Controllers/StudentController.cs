@@ -17,5 +17,9 @@ namespace YoutubeStudClient.Controllers
         {
             return View();
         }
+        public IActionResult CreateStudentSemester()
+        {
+            return View();
+        }
     }
 }

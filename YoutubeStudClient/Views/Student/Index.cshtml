@@ -7,6 +7,7 @@
 <div>
     <input type="button" id="btnGetAll" name="btnGetAll" class="btn btn-info" value="Get Data" />
     <input type="button" id="btnAddNEw" name="btnAddNEw" class="btn btn-primary" value="Add New" />
+    <input type="button" id="btnAddSem" name="btnAddSem" class="btn btn-info" value="Add Semester" />
 </div>
 <div class="container">
     <div class="container-fluid">
@@ -68,7 +69,7 @@
 						$("#studtblbody").empty();
                             $.each(response, function (index, item)
                             {
-                                $("#studtblbody").append("<tr><td><input type='radio' id='rd1' name='rd1' value=" + item.Id + " group='rad1' /><input type='hidden' id='r1' name='r1' value=" + item.Id + " /></td><td>" + item.StudentName + "</td> <td>" + item.age + " </td><td>" + item.Address + "</td> <td> <a id='a1' href=# value=" + item.Id + " >Edit</a> | <a id='a2' href=# value=" + item.Id + " >Delete</a> </td></tr>");
+                                $("#studtblbody").append("<tr><td><input type='radio' id='rd1' name='rd1' value=" + item.Id + " group='rad1' /><input type='hidden' id='r1' name='r1' value=" + item.Id + " />" + item.Id + "</td><td>" + item.StudentName + "</td> <td>" + item.age + " </td><td>" + item.Address + "</td> <td> <a id='a1' href=# value=" + item.Id + " >Edit</a> | <a id='a2' href=# value=" + item.Id + " >Delete</a> </td></tr>");
                             });
                         }
                     },
@@ -89,6 +90,11 @@
             $(document).on("click", "#btnAddNEw", function () {
                 debugger;
                 $(location).prop('href', 'Student/CreateStudent')
+            });
+
+            $(document).on("click", "#btnAddSem", function () {
+                debugger;
+                $(location).prop('href', 'Student/CreateStudentSemester')
             });
 
             $(document).on("click", "#a1", function () {
@@ -150,7 +156,7 @@
                         } else {
                             $("#semesterbody").empty();
                             $.each(response, function (index, item) {
-                                $("#semesterbody").append("<tr><td>" + item.Studid + "</td><td>" + item.Subject1 + "</td> <td>" + item.Mark1 + " </td><td>" + item.Subject2 + "</td> <td>" + item.Mark2 + " </td><td>" + item.TotalMark + "</td></tr>");
+                                $("#semesterbody").append("<tr><td>" + item.SemesterNum + "</td><td>" + item.Subject1 + "</td> <td>" + item.Mark1 + " </td><td>" + item.Subject2 + "</td> <td>" + item.Mark2 + " </td><td>" + item.TotalMark + "</td></tr>");
                             });
                         }
                     },
